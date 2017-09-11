@@ -1,0 +1,48 @@
+Web Server di file statici per test
+
+Non uso NGINX
+
+Path: '/Users/max/DEVELOP/web-server-go-max'
+
+progetto ricavato dallo studio: '/Users/max/DEVELOP/web-server-api-and-static-go-studio'
+
+started: 2017-07-27
+
+prima di eseguire lanciare:
+>export GOPATH=$PWD
+
+
+documentazione:
+
+http://www.gorillatoolkit.org/pkg/mux
+http://thenewstack.io/make-a-restful-json-api-go/
+
+Go: Simple, Easy, Fast – Building a Go (golang) REST Service with Gorilla
+http://www.giantflyingsaucer.com/blog/?p=5635
+
+http://rodrigosaito.com/2015/05/04/rest-api-with-gorilla-mux.html
+
+unmarshall:
+https://blog.golang.org/json-and-go
+
+per ottenere gorilla digitare in console:
+>export GOPATH=$PWD
+>go get
+>go run *.go
+
+
+
+*** CHANGE HISTORY ***
+
+2017-07-27
+
+- started
+
+- git INIT
+
+2017-09-11
+
+- aggiunto logging
+
+
+
