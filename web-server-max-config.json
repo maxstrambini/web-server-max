@@ -1,7 +1,7 @@
 {
 
-"server_port": 8082,
+"server_port": 8083,
 
-"xxx_root_folder": "./html/"
+"root_folder": "./html/"
 
 }

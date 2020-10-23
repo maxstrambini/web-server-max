@@ -57,9 +57,10 @@ func main() {
 	//qui servo pagine statiche:
 	//router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(conf.RootFolder))))
+	//router.PathPrefix("/html/").Handler(http.StripPrefix("/html/", http.FileServer(http.Dir("./html/"))))
 
 	serverPortDef := fmt.Sprintf(":%d", conf.ServerPort)
-	log.Printf("Serving: '%s' in '%s", serverPortDef, conf.RootFolder)
+	log.Printf("Serving: '%s', root is '%s \n(for example call 'http://localhost%s/index.html' to get './html/index.html')", serverPortDef, conf.RootFolder, serverPortDef)
 
 	//WITHOUT CORS:
 	//log.Fatal(http.ListenAndServe(serverPortDef, router))
