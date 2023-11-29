@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-//Configuration struct with all variables imported from config.json
+// Configuration struct with all variables imported from config.json
 type Configuration struct {
 	ServerPort int `json:"server_port"`
 
@@ -21,10 +21,10 @@ type Configuration struct {
 
 var conf Configuration
 
-//ReadConfig reads 'config.json' and fills Configuration struct
+// ReadConfig reads 'config.json' and fills Configuration struct
 func ReadConfig() {
-	configFile := "web-server-max-config.json"
-	log.Printf("ReadConfig: reading 'Configuration' from '%s'", configFile)
+	configFile := "webservermax-config.json"
+	log.Printf("Reading configuration from '%s'", configFile)
 	var err error
 	conf, err = loadConfig(configFile)
 	if err == nil {

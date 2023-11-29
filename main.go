@@ -1,8 +1,8 @@
 /*
 
-WEB SERVER e APP SERVER per la app di scrittura metadati di ARAMCO
+WEB SERVER che utilizza gorilla
 
-[2016-11-08] Max
+[2023-11-29] Max
 
 */
 
@@ -10,34 +10,42 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net/http"
-	"os"
+	"runtime"
 	"time"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/maxstrambini/goutils"
 )
 
-var version = "1.0.0"
+var version = "1.1.0"
 var start = time.Now()
 
 var progressiveId = 10000
 
+var appName = "webservermax"
+var maxLogSizeMB = 10
+var maxLogRotations = 100
+
 func main() {
 
 	//setting up the log:
-	log.Printf("SETTING LOG 'web-server-max.log' ...\n")
-	f, err := os.OpenFile("web-server-max.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
-	if err != nil {
-		log.Printf("Error opening file: %v", err)
+	//#fix_path_LINUX_Windows:
+	logname := ""
+	if runtime.GOOS == "windows" {
+		fmt.Println("WINDOWS OS")
+		logname = fmt.Sprintf(".\\log\\%s.log", appName)
+	} else {
+		fmt.Println("NON WINDOWS OS")
+		logname = fmt.Sprintf("./log/%s.log", appName)
 	}
-	defer f.Close()
-	////to log to file only:
-	//log.SetOutput(f)
-	//to log to stdout AND file:
-	mw := io.MultiWriter(os.Stdout, f)
+
+	fmt.Printf("SETTING LOG '%s' ...\n", logname)
+
+	//using max rotating log to write only to files with rotation
+	mw := goutils.NewMaxRotateWriter(logname, maxLogSizeMB*1024*1024, true, maxLogRotations) //filename string, maxBytes int, rotateFilesByNumber bool, maxRotatedFilesByNumber int
 	log.SetOutput(mw)
 	//log set up completed.
 
