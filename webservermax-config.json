@@ -1,6 +1,6 @@
 {
 
-"server_port": 8083,
+"server_port": 8080,
 
 "root_folder": "./html/"
 

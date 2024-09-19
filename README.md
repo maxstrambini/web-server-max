@@ -10,6 +10,9 @@ change-history:
 - renamed 'web-server-max-config.json' to 'webservermax-config.json'
 - version 1.1.0
 
+2024-09-19:
+- migliorato logging, soprattutto aggiunto log se esce da ListenAndServe
+
 
 
 

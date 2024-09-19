@@ -20,7 +20,7 @@ import (
 	"github.com/maxstrambini/goutils"
 )
 
-var version = "1.1.0"
+var version = "1.2.0"
 var start = time.Now()
 
 var progressiveId = 10000
@@ -60,6 +60,8 @@ func main() {
 	if len(conf.RootFolder) == 0 {
 		conf.RootFolder = "./html/"
 		log.Printf("Config 'root_folder' is empty: forced to '%s'", conf.RootFolder)
+	} else {
+		log.Printf("Config 'root_folder': '%s'", conf.RootFolder)
 	}
 
 	//qui servo pagine statiche:
@@ -67,8 +69,10 @@ func main() {
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir(conf.RootFolder))))
 	//router.PathPrefix("/html/").Handler(http.StripPrefix("/html/", http.FileServer(http.Dir("./html/"))))
 
+	log.Printf("Config 'server_port': '%v'", conf.ServerPort)
+
 	serverPortDef := fmt.Sprintf(":%d", conf.ServerPort)
-	log.Printf("Serving: '%s', root is '%s \n(for example call 'http://localhost%s/index.html' to get './html/index.html')", serverPortDef, conf.RootFolder, serverPortDef)
+	log.Printf("Serving on port '%v' from root: '%s' \n(for example call 'http://localhost%s/index.html' to get './html/index.html')", serverPortDef, conf.RootFolder, serverPortDef)
 
 	//WITHOUT CORS:
 	//log.Fatal(http.ListenAndServe(serverPortDef, router))
@@ -76,5 +80,9 @@ func main() {
 	//log.Fatal(http.ListenAndServe(serverPortDef, handlers.CORS()(router)))
 
 	loggedRouter := handlers.LoggingHandler(mw, router)
-	http.ListenAndServe(serverPortDef, handlers.CORS()(loggedRouter))
+	err := http.ListenAndServe(serverPortDef, handlers.CORS()(loggedRouter))
+	if err != nil {
+		log.Printf("ListenAndServe has returned error: %v", err)
+	}
+	log.Printf("Server now exit!")
 }

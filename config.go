@@ -8,8 +8,8 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
+	"os"
 )
 
 // Configuration struct with all variables imported from config.json
@@ -40,12 +40,12 @@ func saveConfig(c Configuration, filename string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(filename, bytes, 0644)
+	return os.WriteFile(filename, bytes, 0644)
 }
 
 func loadConfig(filename string) (Configuration, error) {
 
-	bytes, err := ioutil.ReadFile(filename)
+	bytes, err := os.ReadFile(filename)
 	if err != nil {
 		return Configuration{}, err
 	}
